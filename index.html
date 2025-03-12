@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,8 +29,15 @@
         }
 
         @keyframes glow {
-            0%, 100% { text-shadow: 0 0 10px #ff69b4; }
-            50% { text-shadow: 0 0 20px #ff69b4, 0 0 30px #ff69b4; }
+
+            0%,
+            100% {
+                text-shadow: 0 0 10px #ff69b4;
+            }
+
+            50% {
+                text-shadow: 0 0 20px #ff69b4, 0 0 30px #ff69b4;
+            }
         }
 
         p {
@@ -92,18 +100,35 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
         }
 
         @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         @keyframes rotateCarousel {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
+            0% {
+                transform: rotateY(0deg);
+            }
+
+            100% {
+                transform: rotateY(360deg);
+            }
         }
 
         .typewriter {
@@ -117,24 +142,53 @@
         }
 
         @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: #FFA500 }
+
+            from,
+            to {
+                border-color: transparent
+            }
+
+            50% {
+                border-color: #FFA500
+            }
         }
 
         @keyframes rocket {
-            0% { transform: translateY(100vh) translateX(0); opacity: 1; }
-            50% { transform: translateY(50vh) translateX(var(--offset)); }
-            100% { transform: translateY(0) translateX(0); opacity: 0; }
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 1;
+            }
+
+            50% {
+                transform: translateY(50vh) translateX(var(--offset));
+            }
+
+            100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
         }
 
         @keyframes burst {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(2); opacity: 0; }
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
         }
 
         @keyframes fall {
-            0% { transform: translateY(0) rotate(0deg); }
-            100% { transform: translateY(100vh) rotate(360deg); }
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+            }
         }
 
         .rocket {
@@ -150,6 +204,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>🎉 Happy Birthday, Sister! 🎂</h1>
@@ -174,7 +229,7 @@
             let i = 0;
             element.style.width = 'auto';
             element.innerHTML = '';
-            
+
             function type() {
                 if (i < text.length) {
                     element.innerHTML += text.charAt(i);
@@ -182,12 +237,12 @@
                     setTimeout(type, speed);
                 }
             }
-            
+
             type();
         }
 
         // Call this when the page loads
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const typewriterElement = document.querySelector('.typewriter');
             const text = "Wishing you a fantastic day filled with love and joy! ❤️";
             typeWriter(typewriterElement, text);
@@ -219,20 +274,20 @@
             const carousel = document.querySelector('.image-carousel');
             const totalImages = images.length;
             const radius = 200; // Distance from center
-            
+
             images.forEach((src, index) => {
                 const img = document.createElement('img');
                 img.src = src;
                 img.className = 'carousel-image';
-                
+
                 // Calculate the angle for each image
                 const angle = (index / totalImages) * 2 * Math.PI;
-                
+
                 // Position images in a circle
                 const x = Math.sin(angle) * radius;
                 const z = Math.cos(angle) * radius;
-                
-                img.style.transform = `translateX(${x}px) translateZ(${z}px) rotateY(${angle * (180/Math.PI)}deg)`;
+
+                img.style.transform = `translateX(${x}px) translateZ(${z}px) rotateY(${angle * (180 / Math.PI)}deg)`;
                 carousel.appendChild(img);
             });
 
@@ -274,24 +329,24 @@
         function showSurprise() {
             let surprise = document.getElementById("surprise");
             surprise.classList.remove("hidden");
-            
+
             // Add typewriter effect to the surprise message
             const surpriseMessage = surprise.querySelector('p');
             typeWriter(surpriseMessage, "You are an amazing person and will be a wonderful doctor! 🩺💖");
-            
+
             // Play birthday song
             const song = document.getElementById('birthdaySong');
             const playPromise = song.play();
-            
+
             if (playPromise !== undefined) {
                 playPromise.then(_ => {
                     console.log("Audio is playing");
                 })
-                .catch(error => {
-                    console.log("Audio playback failed: ", error);
-                });
+                    .catch(error => {
+                        console.log("Audio playback failed: ", error);
+                    });
             }
-            
+
             // Setup carousel and floating icons
             setupImageCarousel();
             createFloatingIcons();
@@ -312,7 +367,7 @@
                     confetti.remove();
                 }, 3000);
             }, 200);
-            
+
             // Clear confetti after 5 seconds
             setTimeout(() => clearInterval(confettiInterval), 5000);
 
@@ -336,31 +391,31 @@
         function checkTime() {
             const targetDate = new Date('2024-03-14T00:00:00Z'); // UTC time
             const now = new Date();
-            
+
             if (now >= targetDate) {
                 document.getElementById('countdown-container').style.display = 'none';
                 document.getElementById('birthday-content').style.display = 'block';
                 return true;
             }
-            
+
             // Calculate time remaining
             const timeRemaining = targetDate - now;
             const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
             const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-            
+
             // Update countdown display
             document.getElementById('countdown').innerHTML = `
                 Time until birthday: <br>
                 ${days} days ${hours} hours ${minutes} minutes ${seconds} seconds
             `;
-            
+
             return false;
         }
 
         // Add this to your DOMContentLoaded event listener
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Check time immediately
             if (!checkTime()) {
                 // Update countdown every second if it's not time yet
@@ -374,4 +429,5 @@
         });
     </script>
 </body>
+
 </html>
