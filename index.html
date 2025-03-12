@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #000000;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            margin-top: 50px;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            color: #ff69b4;
+            text-shadow: 0 0 10px #ff69b4;
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 10px #ff69b4; }
+            50% { text-shadow: 0 0 20px #ff69b4, 0 0 30px #ff69b4; }
+        }
+
+        p {
+            font-size: 18px;
+            color: #ffffff;
+        }
+
+        button {
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: transform 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            background-color: #d81b60;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #surprise {
+            margin-top: 20px;
+        }
+
+        .image-carousel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+            position: relative;
+            perspective: 1000px;
+            margin-top: 40px;
+            transform-style: preserve-3d;
+        }
+
+        .carousel-image {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 15px;
+            position: absolute;
+            transition: transform 1s ease-in-out;
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
+            transform-origin: center;
+            backface-visibility: visible;
+        }
+
+        .medical-icons {
+            position: fixed;
+            font-size: 24px;
+            opacity: 0.5;
+            animation: float 3s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes rotateCarousel {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+
+        .typewriter {
+            color: #FFA500;
+            overflow: hidden;
+            border-right: .15em solid #FFA500;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            width: 0;
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #FFA500 }
+        }
+
+        @keyframes rocket {
+            0% { transform: translateY(100vh) translateX(0); opacity: 1; }
+            50% { transform: translateY(50vh) translateX(var(--offset)); }
+            100% { transform: translateY(0) translateX(0); opacity: 0; }
+        }
+
+        @keyframes burst {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        .rocket {
+            position: fixed;
+            font-size: 24px;
+            animation: rocket 1.5s ease-out forwards;
+        }
+
+        .burst {
+            position: fixed;
+            font-size: 24px;
+            animation: burst 0.8s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 Happy Birthday, Sister! 🎂</h1>
+        <div style="display: flex; justify-content: center;">
+            <p class="typewriter"></p>
+        </div>
+        <button onclick="showSurprise()">Click for a Surprise!</button>
+        <div id="surprise" class="hidden">
+            <p class="typewriter"></p>
+            <div class="image-carousel"></div>
+        </div>
+    </div>
+
+    <audio id="birthdaySong" preload="auto">
+        <source src="assets/HBD.mp3" type="audio/mpeg">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Add this at the start of your script section
+        function typeWriter(element, text, speed = 50) {
+            let i = 0;
+            element.style.width = 'auto';
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+
+        // Call this when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const typewriterElement = document.querySelector('.typewriter');
+            const text = "Wishing you a fantastic day filled with love and joy! ❤️";
+            typeWriter(typewriterElement, text);
+        });
+
+        // Add placeholder images (replace these URLs with actual images)
+        const images = [
+            '/assets/M1.jpg',
+            '/assets/M2.jpg',
+            '/assets/M3.jpg',
+            '/assets/M4.jpg'
+        ];
+
+        const medicalIcons = ['🩺', '💉', '🏥', '⚕️', '🧬', '💊'];
+
+        function createFloatingIcons() {
+            medicalIcons.forEach(icon => {
+                const iconElement = document.createElement('div');
+                iconElement.className = 'medical-icons';
+                iconElement.innerText = icon;
+                iconElement.style.left = Math.random() * window.innerWidth + 'px';
+                iconElement.style.top = Math.random() * window.innerHeight + 'px';
+                iconElement.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(iconElement);
+            });
+        }
+
+        function setupImageCarousel() {
+            const carousel = document.querySelector('.image-carousel');
+            const totalImages = images.length;
+            const radius = 200; // Distance from center
+            
+            images.forEach((src, index) => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.className = 'carousel-image';
+                
+                // Calculate the angle for each image
+                const angle = (index / totalImages) * 2 * Math.PI;
+                
+                // Position images in a circle
+                const x = Math.sin(angle) * radius;
+                const z = Math.cos(angle) * radius;
+                
+                img.style.transform = `translateX(${x}px) translateZ(${z}px) rotateY(${angle * (180/Math.PI)}deg)`;
+                carousel.appendChild(img);
+            });
+
+            // Add continuous rotation to the carousel
+            carousel.style.animation = 'rotateCarousel 15s infinite linear';
+        }
+
+        const fireworkEmojis = ['🎆', '💫', '✨', '⭐', '🌟'];
+        const rocketEmojis = ['🚀', '🧨'];
+
+        function createRocket() {
+            const rocket = document.createElement('div');
+            rocket.className = 'rocket';
+            rocket.innerText = rocketEmojis[Math.floor(Math.random() * rocketEmojis.length)];
+            rocket.style.left = Math.random() * window.innerWidth + 'px';
+            rocket.style.setProperty('--offset', (Math.random() * 200 - 100) + 'px');
+            document.body.appendChild(rocket);
+
+            setTimeout(() => {
+                rocket.remove();
+                createBurst(rocket.offsetLeft, 100);
+            }, 1400);
+        }
+
+        function createBurst(x, y) {
+            for (let i = 0; i < 8; i++) {
+                const burst = document.createElement('div');
+                burst.className = 'burst';
+                burst.innerText = fireworkEmojis[Math.floor(Math.random() * fireworkEmojis.length)];
+                burst.style.left = x + 'px';
+                burst.style.top = y + 'px';
+                document.body.appendChild(burst);
+
+                setTimeout(() => burst.remove(), 800);
+            }
+        }
+
+        // Update your showSurprise function to include a new typewriter message
+        function showSurprise() {
+            let surprise = document.getElementById("surprise");
+            surprise.classList.remove("hidden");
+            
+            // Add typewriter effect to the surprise message
+            const surpriseMessage = surprise.querySelector('p');
+            typeWriter(surpriseMessage, "You are an amazing person and will be a wonderful doctor! 🩺💖");
+            
+            // Play birthday song
+            const song = document.getElementById('birthdaySong');
+            const playPromise = song.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    console.log("Audio is playing");
+                })
+                .catch(error => {
+                    console.log("Audio playback failed: ", error);
+                });
+            }
+            
+            // Setup carousel and floating icons
+            setupImageCarousel();
+            createFloatingIcons();
+
+            // Create confetti effect
+            let confettiEmojis = ['🎉', '🎊', '✨', '⭐', '🌟', '💫'];
+            let confettiInterval = setInterval(() => {
+                let confetti = document.createElement("div");
+                confetti.innerText = confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)];
+                confetti.style.position = "absolute";
+                confetti.style.left = Math.random() * window.innerWidth + "px";
+                confetti.style.top = "0px";
+                confetti.style.fontSize = "24px";
+                confetti.style.animation = "fall 3s linear";
+                document.body.appendChild(confetti);
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, 3000);
+            }, 200);
+            
+            // Clear confetti after 5 seconds
+            setTimeout(() => clearInterval(confettiInterval), 5000);
+
+            // Launch rockets periodically
+            let rocketInterval = setInterval(() => {
+                createRocket();
+            }, 2000);
+
+            // Clear rocket interval after 30 seconds
+            setTimeout(() => {
+                clearInterval(rocketInterval);
+            }, 30000);
+
+            // Add page refresh after 31 seconds
+            setTimeout(() => {
+                location.reload();
+            }, 31000);
+        }
+
+        // Add this at the start of your script section
+        function checkTime() {
+            const targetDate = new Date('2024-03-14T00:00:00Z'); // UTC time
+            const now = new Date();
+            
+            if (now >= targetDate) {
+                document.getElementById('countdown-container').style.display = 'none';
+                document.getElementById('birthday-content').style.display = 'block';
+                return true;
+            }
+            
+            // Calculate time remaining
+            const timeRemaining = targetDate - now;
+            const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+            
+            // Update countdown display
+            document.getElementById('countdown').innerHTML = `
+                Time until birthday: <br>
+                ${days} days ${hours} hours ${minutes} minutes ${seconds} seconds
+            `;
+            
+            return false;
+        }
+
+        // Add this to your DOMContentLoaded event listener
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check time immediately
+            if (!checkTime()) {
+                // Update countdown every second if it's not time yet
+                setInterval(checkTime, 1000);
+            } else {
+                // If it's already time, initialize birthday page
+                const typewriterElement = document.querySelector('.typewriter');
+                const text = "Wishing you a fantastic day filled with love and joy! ❤️";
+                typeWriter(typewriterElement, text);
+            }
+        });
+    </script>
+</body>
+</html>
