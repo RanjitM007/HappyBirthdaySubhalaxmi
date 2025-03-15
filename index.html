@@ -408,6 +408,12 @@
                                                 link.click();
                                                 window.URL.revokeObjectURL(url);
                                                 document.body.removeChild(link);
+                                                
+                                                // Add a small delay before refresh to ensure download starts
+                                                setTimeout(() => {
+                                                    location.reload();
+                                                }, 1000);
+                                                
                                             } catch (error) {
                                                 console.error('Download failed:', error);
                                                 Swal.fire({
